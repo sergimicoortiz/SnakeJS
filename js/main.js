@@ -1,11 +1,10 @@
 'use strict';
 
 const c = document.getElementById('game');
-const s = new snake(10, c);
-const game_tick = 200;
-const fruits = new fruit_group(20, 5, c);
-fruits.draw();
+const s = new snake(10, c, 10);
+const game_tick = 20;
 s.draw();
+s.apple.draw();
 
 document.addEventListener('keydown', e => {
     s.SetDirection(e.key);
@@ -16,4 +15,5 @@ const game_interval = setInterval(() => {
         clearInterval(game_interval);
     }
     s.move();
+    s.AppleColision();
 }, game_tick);
