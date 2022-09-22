@@ -80,9 +80,9 @@ class snake {
     SlavesMove() {
         for (let i = 0; i < this.salves.length; i++) {
             if (i === 0) {
-                this.salves[i].follow(this.x, this.y, this.direction);
+                this.salves[i].follow(this);
             } else {
-                this.salves[i].follow(this.salves[i - 1].x, this.salves[i - 1].y, this.direction);
+                this.salves[i].follow(this.salves[i - 1]);
             }//end else if
         }//end for
     };//

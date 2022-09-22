@@ -1,6 +1,7 @@
 class snake_slave {
     constructor(size, canvas) {
         this.canvas = canvas;
+        this.direction = null;
         this.size = size
         this.x = 0;
         this.y = 0;
@@ -16,7 +17,11 @@ class snake_slave {
         this.figure.clearRect(this.x, this.y, this.size, this.size);
     }//clear
 
-    follow(x, y, d) {
+    follow(parent) {
+        this.direction = this.SetDirection(parent);
+        const d = parent.direction;
+        const x = parent.x;
+        const y = parent.y;
         if (this.x !== 0 && this.y !== 0) { this.clear(); }
         switch (d) {
             case 'n':
@@ -38,5 +43,11 @@ class snake_slave {
         }//swich
         this.draw();
     }//follow
+
+    SetDirection(parent) {
+        if (this.x == 0 && this.y == 0) { return parent.direction }
+        if (parent.x !== this.x && parent.y !== this.y) { return this.direction; }//if
+        return parent.direction;
+    }//SetDirection
 
 }//class
