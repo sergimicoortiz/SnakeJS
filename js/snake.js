@@ -8,6 +8,7 @@ class snake {
         this.game_over = false;
         this.score = 0;
         this.apple = new fruit(fruit_size, canvas);
+        this.salves = [];
     }//cosntructor
 
     draw() {
@@ -36,11 +37,14 @@ class snake {
                 this.x = this.x - 1;
                 break;
         }//swich
+        this.draw();
+        this.AppleColision();
+        this.SlavesMove();
+
         if (this.y <= 0 || this.x <= 0 || this.y + this.size >= this.canvas.height || this.x + this.size >= this.canvas.width) {
             console.log("Game Over");
             this.game_over = true;
         }//end
-        this.draw();
     }//move
 
     SetDirection(code) {
@@ -68,11 +72,19 @@ class snake {
             this.size + this.y > this.apple.y) {
             this.apple.draw();
             this.score++;
+            this.salves.push(new snake_slave(this.size, this.canvas));
             console.log('Score: ' + this.score);
         }//end if
-
-
     }//AppleColision
 
+    SlavesMove() {
+        for (let i = 0; i < this.salves.length; i++) {
+            if (i === 0) {
+                this.salves[i].follow(this.x, this.y, this.direction);
+            } else {
+                this.salves[i].follow(this.salves[i - 1].x, this.salves[i - 1].y, this.direction);
+            }//end else if
+        }//end for
+    };//
 
 }//class

@@ -2,7 +2,8 @@
 
 const c = document.getElementById('game');
 const s = new snake(10, c, 10);
-const game_tick = 20;
+const game_tick = 30;
+
 s.draw();
 s.apple.draw();
 
@@ -15,5 +16,4 @@ const game_interval = setInterval(() => {
         clearInterval(game_interval);
     }
     s.move();
-    s.AppleColision();
 }, game_tick);
