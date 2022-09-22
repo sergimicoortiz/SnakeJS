@@ -1,6 +1,7 @@
 class snake {
-    constructor(size, canvas, fruit_size) {
+    constructor(canvas, size, fruit_size, canvas_square) {
         this.size = size
+        this.canvas_square = canvas_square;
         this.x = 10;
         this.y = 10;
         this.direction = "s";
@@ -25,26 +26,44 @@ class snake {
         this.clear();
         switch (this.direction) {
             case 'n':
-                this.y = this.y - 1;
+                this.y = this.y - this.canvas_square;
                 break;
             case 's':
-                this.y = this.y + 1;
+                this.y = this.y + this.canvas_square;
                 break;
             case 'e':
-                this.x = this.x + 1;
+                this.x = this.x + this.canvas_square;
                 break;
             case 'o':
-                this.x = this.x - 1;
+                this.x = this.x - this.canvas_square;
                 break;
         }//swich
+
+        if (this.y + this.size - 3 >= this.canvas.height) {
+            this.y = this.canvas.height - this.size;
+            this.GameOver();
+        }
+        if (this.x + this.size - 3 >= this.canvas.width) {
+            this.x = this.canvas.width - this.size;
+            this.GameOver();
+
+        }
+        if (this.y <= -3) {
+            this.y = 0
+            this.GameOver();
+
+        }
+        if (this.x <= -3) {
+            this.x = 0
+            this.GameOver();
+
+        }
+
         this.draw();
         this.AppleColision();
+        this.SlaveColision();
         this.SlavesMove();
 
-        if (this.y <= 0 || this.x <= 0 || this.y + this.size >= this.canvas.height || this.x + this.size >= this.canvas.width) {
-            console.log("Game Over");
-            this.game_over = true;
-        }//end
     }//move
 
     SetDirection(code) {
@@ -70,12 +89,24 @@ class snake {
             this.x + this.size > this.apple.x &&
             this.y < this.apple.y + this.apple.size &&
             this.size + this.y > this.apple.y) {
+
             this.apple.draw();
             this.score++;
             this.salves.push(new snake_slave(this.size, this.canvas));
             console.log('Score: ' + this.score);
         }//end if
     }//AppleColision
+
+    SlaveColision() {
+        this.salves.forEach(s => {
+            if (this.x < s.x + s.size &&
+                this.x + this.size > s.x &&
+                this.y < s.y + s.size &&
+                this.size + this.y > s.y) {
+                this.GameOver();
+            }//end if
+        });//foreach
+    }//laveColision
 
     SlavesMove() {
         for (let i = 0; i < this.salves.length; i++) {
@@ -86,5 +117,10 @@ class snake {
             }//end else if
         }//end for
     };//
+
+    GameOver() {
+        console.log("Game Over");
+        this.game_over = true;
+    }//IsGameOver
 
 }//class

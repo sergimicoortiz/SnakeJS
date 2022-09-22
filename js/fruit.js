@@ -43,11 +43,6 @@ class fruit {
         if (this.y - this.size <= 0) {
             this.y = this.size;
         }//end if
-
-        //console.log('----------------------');
-        //console.log(this.canvas.width, this.x);
-        //console.log(this.canvas.height, this.y);
-
     }//SetXY
 
 }//class
