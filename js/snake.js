@@ -68,16 +68,16 @@ class snake {
 
     SetDirection(code) {
         switch (code) {
-            case 'ArrowRight':
+            case 'ArrowRight', 'd':
                 if (this.direction !== 'o') { this.direction = 'e'; }
                 break;
-            case 'ArrowDown':
+            case 'ArrowDown', 's':
                 if (this.direction !== 'n') { this.direction = 's'; }
                 break;
-            case 'ArrowUp':
+            case 'ArrowUp', 'w':
                 if (this.direction !== 's') { this.direction = 'n'; }
                 break;
-            case 'ArrowLeft':
+            case 'ArrowLeft', 'a':
                 if (this.direction !== 'e') { this.direction = 'o'; }
                 break;
         }//swich
@@ -90,10 +90,9 @@ class snake {
             this.y < this.apple.y + this.apple.size &&
             this.size + this.y > this.apple.y) {
 
-            this.apple.draw();
+            this.apple.draw([this.size, this.GetAllCoordinates()]);
             this.score++;
             this.salves.push(new snake_slave(this.size, this.canvas));
-            console.log('Score: ' + this.score);
         }//end if
     }//AppleColision
 
@@ -119,8 +118,16 @@ class snake {
     };//
 
     GameOver() {
-        console.log("Game Over");
         this.game_over = true;
     }//IsGameOver
+
+    GetAllCoordinates() {
+        let coordinates = [];
+        coordinates.push({ x: this.x, y: this.y });
+        this.salves.forEach(s => {
+            coordinates.push({ x: s.x, y: s.y });
+        });//foreach
+        return coordinates;
+    }//GetAllCoordinates
 
 }//class
