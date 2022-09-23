@@ -3,6 +3,7 @@ class snake_slave {
         this.canvas = canvas;
         this.direction = null;
         this.size = size
+        this.spawn = true;
         this.x = 0;
         this.y = 0;
     }//constructor
@@ -22,7 +23,7 @@ class snake_slave {
         const d = parent.direction;
         const x = parent.x;
         const y = parent.y;
-        if (this.x !== 0 && this.y !== 0) { this.clear(); }
+        if (!this.spawn) { this.clear(); }
         switch (d) {
             case 'n':
                 this.x = x;
@@ -42,6 +43,7 @@ class snake_slave {
                 break;
         }//swich
         this.draw();
+        this.spawn = false;
     }//follow
 
     SetDirection(parent) {

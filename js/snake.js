@@ -46,17 +46,14 @@ class snake {
         if (this.x + this.size - 3 >= this.canvas.width) {
             this.x = this.canvas.width - this.size;
             this.GameOver();
-
         }
         if (this.y <= -3) {
             this.y = 0
             this.GameOver();
-
         }
         if (this.x <= -3) {
             this.x = 0
             this.GameOver();
-
         }
 
         this.draw();

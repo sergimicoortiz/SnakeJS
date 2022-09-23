@@ -34,5 +34,3 @@ function GameStart() {
         }
     }, game_tick);
 }//GameStart
-
-//The snake is painted when is suposed to not be painted when the snake is close to the walls.
