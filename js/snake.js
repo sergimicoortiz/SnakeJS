@@ -65,16 +65,20 @@ class snake {
 
     SetDirection(code) {
         switch (code) {
-            case 'ArrowRight', 'd':
+            case 'd':
+            case 'ArrowRight':
                 if (this.direction !== 'o') { this.direction = 'e'; }
                 break;
-            case 'ArrowDown', 's':
+            case 's':
+            case 'ArrowDown':
                 if (this.direction !== 'n') { this.direction = 's'; }
                 break;
-            case 'ArrowUp', 'w':
+            case 'w':
+            case 'ArrowUp':
                 if (this.direction !== 's') { this.direction = 'n'; }
                 break;
-            case 'ArrowLeft', 'a':
+            case 'a':
+            case 'ArrowLeft':
                 if (this.direction !== 'e') { this.direction = 'o'; }
                 break;
         }//swich
