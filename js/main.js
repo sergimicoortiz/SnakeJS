@@ -6,6 +6,7 @@ const snake_size = 10;
 const fruit_size = 10;
 
 function GameStart() {
+    //Create the canvas and clear all the other elements and generates the snake 
     const main = document.getElementById('main');
     const game_over_element = document.getElementById('game_over');
     game_over_element.innerHTML = null;
@@ -15,13 +16,19 @@ function GameStart() {
     main.append(c);
     const s = new snake(c, snake_size, fruit_size, canvas_grid_size);
 
+    //Draw the snake for the first time, the same for the apple
     s.draw();
     s.apple.draw();
 
+    //Detects the keydown event and pass the key to the snake SetDirection function
     document.addEventListener('keydown', e => {
         s.SetDirection(e.key);
     });//keydown
 
+    //The interval that moves the game.
+    //First the interval moves the snake and refresh the Score value.
+    //Next detects if the game_over value is false.
+    //If the value is false the interval stops and we generate the game over screen
     const game_interval = setInterval(() => {
         s.move();
         score_element.innerHTML = `Score: ${s.score}`

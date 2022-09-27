@@ -10,20 +10,23 @@ class snake {
         this.score = 0;
         this.apple = new fruit(fruit_size, canvas);
         this.salves = [];
-    }//cosntructor
+    }//constructor
 
+    //Draws the snake
     draw() {
         this.figure = this.canvas.getContext('2d');
         this.figure.fillStyle = 'green';
         this.figure.fillRect(this.x, this.y, this.size, this.size);
-    }//darw
+    }//draw
 
+    //Clears the snake
     clear() {
         this.figure.clearRect(this.x, this.y, this.size, this.size);
     }//clear
 
     move() {
         this.clear();
+        //Set the snake coordinates taking in consideration the direction of the snake
         switch (this.direction) {
             case 'n':
                 this.y = this.y - this.canvas_square;
@@ -37,8 +40,9 @@ class snake {
             case 'o':
                 this.x = this.x - this.canvas_square;
                 break;
-        }//swich
+        }//switch
 
+        //Detects if the snake is inside or in contact with the walls and calls the GameOver function
         if (this.y + this.size - 3 >= this.canvas.height) {
             this.y = this.canvas.height - this.size;
             this.GameOver();
@@ -56,13 +60,15 @@ class snake {
             this.GameOver();
         }
 
+        //Draw the snake, detects the collisions and move the other parts of the snake
         this.draw();
-        this.AppleColision();
-        this.SlaveColision();
+        this.AppleCollision();
+        this.SlaveCollision();
         this.SlavesMove();
 
     }//move
 
+    //Change the direction using the keydown event
     SetDirection(code) {
         switch (code) {
             case 'd':
@@ -81,10 +87,11 @@ class snake {
             case 'ArrowLeft':
                 if (this.direction !== 'e') { this.direction = 'o'; }
                 break;
-        }//swich
+        }//switch
     }//SetDirection
 
-    AppleColision() {
+    //Detects the collision with the apples, in case of collision add one point redraw the apple and add a slave to the slave array 
+    AppleCollision() {
 
         if (this.x < this.apple.x + this.apple.size &&
             this.x + this.size > this.apple.x &&
@@ -95,9 +102,10 @@ class snake {
             this.score++;
             this.salves.push(new snake_slave(this.size, this.canvas));
         }//end if
-    }//AppleColision
+    }//AppleCollision
 
-    SlaveColision() {
+    //Detects if the snakes collides with himself and if true call the GameOver function
+    SlaveCollision() {
         this.salves.forEach(s => {
             if (this.x < s.x + s.size &&
                 this.x + this.size > s.x &&
@@ -106,9 +114,11 @@ class snake {
                 this.GameOver();
             }//end if
         });//foreach
-    }//laveColision
+    }//SlaveCollision
 
+    //Call the follow function in all the slaves in the array
     SlavesMove() {
+        //The first follows the head of the snake(this object) and the others the previous slave
         for (let i = 0; i < this.salves.length; i++) {
             if (i === 0) {
                 this.salves[i].follow(this);
@@ -118,10 +128,12 @@ class snake {
         }//end for
     };//
 
+    //Change the game_over value to true
     GameOver() {
         this.game_over = true;
     }//IsGameOver
 
+    //Get the coordinates fot the head and all the slaves. Is used in the fruit class
     GetAllCoordinates() {
         let coordinates = [];
         coordinates.push({ x: this.x, y: this.y });
