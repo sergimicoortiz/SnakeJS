@@ -4,6 +4,8 @@ class fruit {
         this.canvas = canvas;
         this.x = 0;
         this.y = 0;
+        //this.img = new Image();
+        //this.img.src = 'https://upload.wikimedia.org/wikipedia/commons/0/05/Apple.svg';
     }//constructor
 
     //Draw the fruit in the canvas in the coordinates that are specified
@@ -13,6 +15,7 @@ class fruit {
         this.figure = this.canvas.getContext('2d');
         this.figure.fillStyle = 'red';
         this.figure.fillRect(this.x, this.y, this.size, this.size);
+        //this.figure.drawImage(this.img, this.x, this.y, this.size, this.size);
     }//draw
 
     //Deletes the fruit
