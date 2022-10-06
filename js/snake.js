@@ -1,3 +1,5 @@
+'use strict';
+
 class snake {
     constructor(canvas, size, fruit_size, canvas_square) {
         this.size = size

@@ -5,76 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css//login.css">
+    <title>Welcome</title>
 </head>
 
 <body>
-    <div id="main"></div>
-    <div id="game_over"></div>
-    <div id="score"></div>
-    <div id="start"><button onclick="GameStart()">Start Game</button></div>
+    <h1><a href="./login.html">LOGIN</a></h1>
+    <h1><a href="./game.html">GAME</a></h1>
 
-    <div class="wrapper" id="login_register">
-        <div class="title-text">
-            <div class="title login">Login</div>
-            <div class="title signup">Register</div>
-        </div>
-
-        <!-- Start Form Container -->
-        <div class="form-container">
-            <div class="slide-controls">
-                <input type="radio" name="slider" id="login" checked>
-                <input type="radio" name="slider" id="signup">
-                <label for="login" class="slide login">Login</label>
-                <label for="signup" class="slide signup">Register</label>
-                <div class="slide-tab"></div>
-            </div>
-
-            <div class="form-inner">
-
-                <!-- Start Login Form -->
-                <form action="#" class="login" id="form_login" autocomplete="off">
-                    <div class="field">
-                        <input type="text" placeholder="Email Address" required name="email">
-                    </div>
-                    <div class="field">
-                        <input type="password" placeholder="Password" required name="pass">
-                    </div>
-                    <div class="field">
-                        <input type="submit" value="Login">
-                    </div>
-                </form>
-
-                <!-- Start Signup Form -->
-                <form action="#" class="signup" id="form_register" autocomplete="off">
-                    <div class="field">
-                        <input type="text" placeholder="Email Address" required name="email">
-                    </div>
-                    <div class="field">
-                        <input type="password" placeholder="Password" required name="pass1">
-                    </div>
-                    <div class="field">
-                        <input type="password" placeholder="Confirm password" required name="pass2">
-                    </div>
-
-                    <div class="field">
-                        <input type="submit" value="Signup">
-                    </div>
-
-                </form>
-            </div>
-        </div>
+    <!-- USER INFO -->
+    <div id="user_info">
+        <span id="user_email"></span>
+        <button onclick="logout()">Logout</button>
     </div>
-
 </body>
 <footer>
-    <script src="./js/snake.js"></script>
-    <script src="./js/snake_slave.js"></script>
-    <script src="./js/fruit.js"></script>
-    <script src="./js/login.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="./js/index.js"></script>
 </footer>
 
 </html>

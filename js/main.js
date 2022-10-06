@@ -1,11 +1,28 @@
 'use strict';
 
-const game_tick = 100;
+let game_tick = 0;
 const canvas_grid_size = 10;
 const snake_size = 10;
 const fruit_size = 10;
 
 function GameStart() {
+
+    //The difficulty is set using local storage
+    switch (localStorage.getItem('difficulty')) {
+        case "1":
+            game_tick = 130;
+            break;
+        case "2":
+            game_tick = 90;
+            break;
+        case "3":
+            game_tick = 40;
+            break;
+        default:
+            game_tick = 100;
+            break;
+    }//switch difficulty
+
     //Create the canvas and clear all the other elements and generates the snake 
     const main = document.getElementById('main');
     const game_over_element = document.getElementById('game_over');

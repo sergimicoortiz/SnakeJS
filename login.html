@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css//login.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="wrapper" id="login_register">
+        <div class="title-text">
+            <div class="title login">Login</div>
+            <div class="title signup">Register</div>
+        </div>
+
+        <!-- Start Form Container -->
+        <div class="form-container">
+            <div class="slide-controls">
+                <input type="radio" name="slider" id="login" checked>
+                <input type="radio" name="slider" id="signup">
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Register</label>
+                <div class="slide-tab"></div>
+            </div>
+
+            <div class="form-inner">
+
+                <!-- Start Login Form -->
+                <form action="#" class="login" id="form_login" autocomplete="off">
+                    <div class="field">
+                        <input type="text" placeholder="Email Address" name="email">
+                    </div>
+                    <div>
+                        <span class="error" id="login_email_error"></span>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" name="pass">
+                    </div>
+                    <div>
+                        <span class="error" id="login_password_error"></span>
+                    </div>
+                    <div class="field">
+                        <input type="submit" value="Login">
+                    </div>
+                </form>
+
+                <!-- Start Signup Form -->
+                <form action="#" class="signup" id="form_register" autocomplete="off">
+                    <div class="field">
+                        <input type="text" placeholder="Email Address" name="email">
+                    </div>
+                    <div>
+                        <span class="error" id="register_email_error"></span>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" name="pass1">
+                    </div>
+                    <div>
+                        <span class="error" id="register_password_error"></span>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Confirm password" name="pass2">
+                    </div>
+                    <div class="field">
+                        <input type="submit" value="Signup">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+    <script src="./js/login.js"></script>
+</footer>
+
+</html>

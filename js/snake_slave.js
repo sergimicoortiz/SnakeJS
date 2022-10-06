@@ -1,3 +1,5 @@
+'use strict';
+
 class snake_slave {
     constructor(size, canvas) {
         this.canvas = canvas;

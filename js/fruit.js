@@ -1,3 +1,5 @@
+'use strict';
+
 class fruit {
     constructor(size, canvas) {
         this.size = size
