@@ -31,7 +31,8 @@ form_login.addEventListener('submit', e => {
 form_register.addEventListener('submit', e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
-    regex_register(data);
+    //regex_register(data); 
+    add_user(data); //REMOVE ONLY FOR TESTING
 });//login
 
 function regex_register(data) {
@@ -74,13 +75,15 @@ function regex_login(data) {
     const email_regex = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     let error = false;
 
-    if (email.length === 0) {
+    //COMENT ONLY FOR TESTING
+
+    /* if (email.length === 0) {
         login_email_error.innerHTML = '*You have to introduce an email';
         error = true;
     } else if (email_regex.test(email) === false) {
         login_email_error.innerHTML = "*The email's format is incorrect";
         error = true;
-    };//end else if
+    };//end else if */
 
     if (password.length < 1) {
         login_password_error.innerHTML = "*The password con't be empty";
@@ -92,7 +95,7 @@ function regex_login(data) {
     }//end if
 }//regex_login
 
-async function register_validate_saerver(data) {
+async function register_validate_server(data) {
     const URL = `http://localhost:3000/user/${data.email}`;
     const response = await fetch(URL);
     if (response.status === 404) {
@@ -110,24 +113,13 @@ async function login_validate_server(data) {
         if (response_data.status !== 'OK') {
             login_password_error.innerHTML = "*The password or the email are incorect";
         } else {
-            login(data.email);
+            localStorage.setItem('token', response_data.id);
+            window.location.href = '../index.html';
         }
     } else {
-        console.error('ERROR REGISTER');
+        console.error('ERROR LOGIN PASS');
     }
 }//login_validate_server
-
-async function login(email) {
-    const URL = `http://localhost:3000/user/${email}`;
-    const response = await fetch(URL);
-    if (response.status === 200) {
-        const response_data = await response.json();
-        localStorage.setItem('token', response_data.id);
-        window.location.href = '../index.html';
-    } else {
-        console.error('ERROR REGISTER');
-    }
-}
 
 async function add_user(data) {
     const user = {

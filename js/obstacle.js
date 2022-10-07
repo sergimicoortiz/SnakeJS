@@ -1,6 +1,7 @@
 'use strict';
 
-class fruit {
+
+class obstacle {
     constructor(size, canvas) {
         this.size = size
         this.canvas = canvas;
@@ -8,16 +9,16 @@ class fruit {
         this.y = 0;
     }//constructor
 
-    //Draw the fruit in the canvas in the coordinates that are specified
+    //Draw the obstacle in the canvas in the coordinates that are specified
     draw(coordinates) {
         if (this.x !== 0 && this.y !== 0) { this.clear(); } // Calls clear only when the x and y values are not default. 
         this.SetXY(coordinates);
         this.figure = this.canvas.getContext('2d');
-        this.figure.fillStyle = 'red';
+        this.figure.fillStyle = 'pink';
         this.figure.fillRect(this.x, this.y, this.size, this.size);
     }//draw
 
-    //Deletes the fruit
+    //Deletes the obstacle
     clear() {
         this.figure.clearRect(this.x, this.y, this.size, this.size);
     }//clear
@@ -29,14 +30,14 @@ class fruit {
     }//randomNumber
 
 
-    //Set the coordinates for the fruit
+    //Set the coordinates for the obstacle
     SetXY(coordinates) {
 
         do {
             this.x = this.randomNumber(this.canvas.width);
             this.y = this.randomNumber(this.canvas.height);
             //First get a random number using the canvas width and height as the max value.
-            //Later check if the fruit is inside or to close to the walls of the canvas and change the value if necessary
+            //Later check if the obstacle is inside or to close to the walls of the canvas and change the value if necessary
             if (this.y + this.size >= this.canvas.height) {
                 this.y = this.canvas.height - (this.size * 2);
             }//end if
@@ -52,11 +53,11 @@ class fruit {
             if (this.y - this.size <= 0) {
                 this.y = (this.size * 2);
             }//end if
-        } while (this.CollisionSpawn(coordinates)); //If the fruit collision with some part of the snake recalculates x and y
+        } while (this.CollisionSpawn(coordinates)); //If the obstacle collision with some part of the snake recalculates x and y
 
     }//SetXY
 
-    //Check if the fruit collision with some part of the snake.
+    //Check if the obstacle collision with some part of the snake.
     CollisionSpawn(coordinates) {
         let collision = false;
         if (coordinates) {
@@ -72,5 +73,4 @@ class fruit {
         }//end if
         return collision;
     }//CollisionSpawn
-
 }//class

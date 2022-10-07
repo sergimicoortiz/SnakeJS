@@ -1,17 +1,25 @@
 'use strict';
 
 class snake {
-    constructor(canvas, size, fruit_size, canvas_square) {
+    constructor(canvas, size, obstacle_on) {
         this.size = size
-        this.canvas_square = canvas_square;
+        this.canvas_square = size;
         this.x = 10;
         this.y = 10;
+        this.obstacle_on = obstacle_on;
         this.direction = "s";
         this.canvas = canvas
         this.game_over = false;
         this.score = 0;
-        this.apple = new fruit(fruit_size, canvas);
+        this.apple = new fruit(size, canvas);
+        this.obstacles = [];
         this.salves = [];
+
+        this.apple.draw([size, this.GetAllCoordinates('obstacle')]);
+        if (obstacle_on) {
+            this.obstacles.push(new obstacle(this.size, this.canvas));
+            this.ObstacleDraw();
+        }
     }//constructor
 
     //Draws the snake
@@ -65,6 +73,7 @@ class snake {
         //Draw the snake, detects the collisions and move the other parts of the snake
         this.draw();
         this.AppleCollision();
+        if (this.obstacle_on) { this.ObstacleCollision(); }
         this.SlaveCollision();
         this.SlavesMove();
 
@@ -92,6 +101,9 @@ class snake {
         }//switch
     }//SetDirection
 
+
+    //////COLISIONS//////////////////////////////
+
     //Detects the collision with the apples, in case of collision add one point redraw the apple and add a slave to the slave array 
     AppleCollision() {
 
@@ -100,9 +112,13 @@ class snake {
             this.y < this.apple.y + this.apple.size &&
             this.size + this.y > this.apple.y) {
 
-            this.apple.draw([this.size, this.GetAllCoordinates()]);
+            this.apple.draw([this.size, this.GetAllCoordinates('apple')]);
             this.score++;
             this.salves.push(new snake_slave(this.size, this.canvas));
+            if (this.obstacle_on && this.obstacles.length < 5) {
+                this.obstacles.push(new obstacle(this.size, this.canvas));
+            }
+            if (this.obstacle_on) { this.ObstacleDraw(); }
         }//end if
     }//AppleCollision
 
@@ -118,6 +134,18 @@ class snake {
         });//foreach
     }//SlaveCollision
 
+    ObstacleCollision() {
+        this.obstacles.forEach(obstacle => {
+            if (this.x < obstacle.x + obstacle.size &&
+                this.x + this.size > obstacle.x &&
+                this.y < obstacle.y + obstacle.size &&
+                this.size + this.y > obstacle.y) { this.GameOver(); }
+        })
+    }//ObstacleCollision
+
+
+    ////MOVEMENT AND DRAW///////////////////////////
+
     //Call the follow function in all the slaves in the array
     SlavesMove() {
         //The first follows the head of the snake(this object) and the others the previous slave
@@ -128,7 +156,16 @@ class snake {
                 this.salves[i].follow(this.salves[i - 1]);
             }//end else if
         }//end for
-    };//
+    };//SlavesMove
+
+    ObstacleDraw() {
+        //The first follows the head of the snake(this object) and the others the previous slave
+        for (let i = 0; i < this.obstacles.length; i++) {
+            this.obstacles[i].draw([this.size, this.GetAllCoordinates('apple')]);
+        }//end for
+    };//ObstacleMove
+
+    ///OTHER///////////////////////////
 
     //Change the game_over value to true
     GameOver() {
@@ -136,13 +173,27 @@ class snake {
     }//IsGameOver
 
     //Get the coordinates fot the head and all the slaves. Is used in the fruit class
-    GetAllCoordinates() {
+    GetAllCoordinates(extra = null) {
         let coordinates = [];
         coordinates.push({ x: this.x, y: this.y });
         this.salves.forEach(s => {
             coordinates.push({ x: s.x, y: s.y });
         });//foreach
+
+        //ADD ALL THE OBSTACLES TO THE ARRAY  TODO
+        switch (extra) {
+            case 'apple':
+                coordinates.push({ x: this.apple.x, y: this.apple.y });
+                break;
+            /*  case 'obstacle':
+                 coordinates.push({ x: obstacle.x, y: obstacle.y });
+                 break; */
+            default:
+                break;
+        }
         return coordinates;
     }//GetAllCoordinates
+
+    ///////////////////////////////////////////////////////
 
 }//class
