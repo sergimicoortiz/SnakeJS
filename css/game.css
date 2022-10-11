@@ -3,3 +3,7 @@ canvas {
     width: 60%;
     height: auto;
 }
+
+.h {
+    display: none;
+}

@@ -1,12 +1,12 @@
 'use strict';
 
 class snake {
-    constructor(canvas, size, obstacle_on) {
+    constructor(canvas, size, diffuculty) {
         this.size = size
         this.canvas_square = size;
         this.x = 10;
         this.y = 10;
-        this.obstacle_on = obstacle_on;
+        this.diffuculty = diffuculty;
         this.direction = "s";
         this.canvas = canvas
         this.game_over = false;
@@ -16,7 +16,7 @@ class snake {
         this.salves = [];
 
         this.apple.draw([size, this.GetAllCoordinates('obstacle')]);
-        if (obstacle_on) {
+        if (this.diffuculty > 1) {
             this.obstacles.push(new obstacle(this.size, this.canvas));
             this.ObstacleDraw();
         }
@@ -73,7 +73,7 @@ class snake {
         //Draw the snake, detects the collisions and move the other parts of the snake
         this.draw();
         this.AppleCollision();
-        if (this.obstacle_on) { this.ObstacleCollision(); }
+        if (this.obstacles.length > 0) { this.ObstacleCollision(); }
         this.SlaveCollision();
         this.SlavesMove();
 
@@ -113,12 +113,14 @@ class snake {
             this.size + this.y > this.apple.y) {
 
             this.apple.draw([this.size, this.GetAllCoordinates('apple')]);
-            this.score++;
+            this.score = this.score + this.diffuculty;
             this.salves.push(new snake_slave(this.size, this.canvas));
-            if (this.obstacle_on && this.obstacles.length < 5) {
-                this.obstacles.push(new obstacle(this.size, this.canvas));
+            if (this.diffuculty > 1 && this.obstacles.length < 5) {
+                if (this.score % 10 === 0) {
+                    this.obstacles.push(new obstacle(this.size, this.canvas));
+                }
             }
-            if (this.obstacle_on) { this.ObstacleDraw(); }
+            if (this.obstacles.length > 0) { this.ObstacleDraw(); }
         }//end if
     }//AppleCollision
 
@@ -185,9 +187,11 @@ class snake {
             case 'apple':
                 coordinates.push({ x: this.apple.x, y: this.apple.y });
                 break;
-            /*  case 'obstacle':
-                 coordinates.push({ x: obstacle.x, y: obstacle.y });
-                 break; */
+            case 'obstacle':
+                this.obstacles.forEach(o => {
+                    coordinates.push({ x: o.x, y: o.y });
+                });//foreach
+                break;
             default:
                 break;
         }

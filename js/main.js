@@ -5,11 +5,13 @@ let size = 10;
 const main = document.getElementById('main');
 const game_over_element = document.getElementById('game_over');
 const score_element = document.getElementById('score');
+const form = document.getElementById('form');
 let score = 0;
 
 
 async function GameEnd() {
     console.log('GAME OVER');
+    form.classList.remove('h');
     if (localStorage.getItem('HightScore') < score || localStorage.getItem('HightScore') == null) {
         localStorage.setItem('HightScore', score);
     }
@@ -35,27 +37,31 @@ async function GameEnd() {
 }//GameEnd
 
 function GameStart() {
-    let obstacle = false;
+    form.className = 'h';
+    const form_data = Object.fromEntries(new FormData(form));
+    let difficulty = 1;
+    try {
+        difficulty = parseInt(form_data.difficulty);
+    } catch (error) {
+        difficulty = 1;
+    }
     //The difficulty is set using local storage
-    switch (localStorage.getItem('difficulty')) {
-        case "1":
+    switch (difficulty) {
+        case 1:
             game_tick = 130;
             size = 10;
-            obstacle = false;
             break;
-        case "2":
+        case 2:
             game_tick = 90;
             size = 15;
-            obstacle = true;
             break;
-        /* case "3":
-            game_tick = 40;
-            size = 10;
-            break; */
+        case 3:
+            game_tick = 60;
+            size = 15;
+            break;
         default:
             game_tick = 130;
             size = 10;
-            obstacle = false;
             break;
     }//switch difficulty
 
@@ -64,11 +70,11 @@ function GameStart() {
     const c = document.createElement('canvas');
     document.getElementById('start').innerHTML = null;
     main.append(c);
-    const s = new snake(c, size, obstacle);
+    const s = new snake(c, size, difficulty);
 
     //Draw the snake for the first time, the same for the apple
     s.draw();
-    
+
 
     //Detects the keydown event and pass the key to the snake SetDirection function
     document.addEventListener('keydown', e => {
