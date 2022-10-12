@@ -1,5 +1,7 @@
 'use strict';
 
+
+//Get the user data form the server and put in the html
 async function get_user_data() {
     if (!localStorage.getItem('token')) {
         document.getElementById('user_info').hidden = true;
@@ -16,6 +18,8 @@ async function get_user_data() {
     }//else if
 }//get_user_data
 
+
+//Logout function that remove the items in the local storage
 function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('HightScore');

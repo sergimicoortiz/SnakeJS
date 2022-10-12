@@ -1,25 +1,33 @@
 'use strict';
 
+//Variables for the game. The size is changed depending on the difficulty 
 let game_tick = 0;
 let size = 10;
+let score = 0;
+
+//Document elements
 const main = document.getElementById('main');
 const game_over_element = document.getElementById('game_over');
 const score_element = document.getElementById('score');
 const form = document.getElementById('form');
-let score = 0;
 
 
+//Function when we die.
 async function GameEnd() {
-    console.log('GAME OVER');
-    form.classList.remove('h');
+    form.classList.remove('h'); //Make the difficulty selector visible.
+
+    //Set the HightScore in local storage to a new one.
     if (localStorage.getItem('HightScore') < score || localStorage.getItem('HightScore') == null) {
         localStorage.setItem('HightScore', score);
-    }
+    }//if local
+
+    //Delete the game elements and set the game over screen.
     main.innerHTML = null;
     score_element.innerHTML = null;
     const game_over_html = `<h1>GAME OVER</h1><p>Score: ${score}</p><p>Hight score: ${localStorage.getItem('HightScore')}</p><br><button onclick="GameStart()">Restart</button>`;
     game_over_element.innerHTML = game_over_html;
 
+    // If there is a token in local storage then change the HightScore in the server
     if (localStorage.getItem('token')) {
         const URL = `http://localhost:3000/user/${localStorage.getItem('token')}`;
         const body = JSON.stringify({ HightScore: localStorage.getItem('HightScore') });
@@ -74,8 +82,6 @@ function GameStart() {
 
     //Draw the snake for the first time, the same for the apple
     s.draw();
-
-
     //Detects the keydown event and pass the key to the snake SetDirection function
     document.addEventListener('keydown', e => {
         s.SetDirection(e.key);

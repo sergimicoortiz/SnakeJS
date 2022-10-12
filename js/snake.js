@@ -1,12 +1,12 @@
 'use strict';
 
 class snake {
-    constructor(canvas, size, diffuculty) {
+    constructor(canvas, size, difficulty) {
         this.size = size
         this.canvas_square = size;
         this.x = 10;
         this.y = 10;
-        this.diffuculty = diffuculty;
+        this.difficulty = difficulty;
         this.direction = "s";
         this.canvas = canvas
         this.game_over = false;
@@ -16,7 +16,7 @@ class snake {
         this.salves = [];
 
         this.apple.draw([size, this.GetAllCoordinates('obstacle')]);
-        if (this.diffuculty > 1) {
+        if (this.difficulty > 1) {
             this.obstacles.push(new obstacle(this.size, this.canvas));
             this.ObstacleDraw();
         }
@@ -102,7 +102,7 @@ class snake {
     }//SetDirection
 
 
-    //////COLISIONS//////////////////////////////
+    //////COLLISION//////////////////////////////
 
     //Detects the collision with the apples, in case of collision add one point redraw the apple and add a slave to the slave array 
     AppleCollision() {
@@ -113,9 +113,9 @@ class snake {
             this.size + this.y > this.apple.y) {
 
             this.apple.draw([this.size, this.GetAllCoordinates('apple')]);
-            this.score = this.score + this.diffuculty;
+            this.score = this.score + this.difficulty;
             this.salves.push(new snake_slave(this.size, this.canvas));
-            if (this.diffuculty > 1 && this.obstacles.length < 5) {
+            if (this.difficulty > 1 && this.obstacles.length < 5) {
                 if (this.score % 10 === 0) {
                     this.obstacles.push(new obstacle(this.size, this.canvas));
                 }

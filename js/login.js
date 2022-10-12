@@ -1,5 +1,6 @@
 'use strict';
 
+//All the elements from the document
 const loginForm = document.querySelector("form.login");
 const loginBtn = document.querySelector("label.login");
 const signupBtn = document.querySelector("label.signup");
@@ -12,6 +13,7 @@ const login_email_error = document.getElementById('login_email_error');
 const login_password_error = document.getElementById('login_password_error');
 
 
+//The onclick to change the style og the form
 signupBtn.onclick = () => {
     loginForm.style.marginLeft = "-50%";
     loginText.style.marginLeft = "-50%";
@@ -22,12 +24,15 @@ loginBtn.onclick = () => {
     loginText.style.marginLeft = "0%";
 };
 
+
+//EventListener for the login
 form_login.addEventListener('submit', e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
     regex_login(data);
 });//login
 
+//EventListener for the register
 form_register.addEventListener('submit', e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
@@ -35,7 +40,9 @@ form_register.addEventListener('submit', e => {
     add_user(data); //REMOVE ONLY FOR TESTING
 });//login
 
+//Function that checks the register regex
 function regex_register(data) {
+    //Reset the error messages 
     register_email_error.innerHTML = '';
     register_password_error.innerHTML = '';
     const password1 = data.pass1;
@@ -44,15 +51,16 @@ function regex_register(data) {
     const email_regex = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     let error = false;
 
-    if (email.length === 0) {
-        register_email_error.innerHTML = '*You have to introduce an email';
+
+    if (email.length === 0) { //Check the email length
+        register_email_error.innerHTML = '*You have to introduce an email'; // Set the error messages
         error = true;
-    } else if (email_regex.test(email) === false) {
+    } else if (email_regex.test(email) === false) { //Check the email regex
         register_email_error.innerHTML = "*The email's format is incorrect";
         error = true;
     };//end else if
 
-    if (password1 !== password2) {
+    if (password1 !== password2) { //Check if the two passwords have the same values
         register_password_error.innerHTML = '*The passwords must be the same';
         error = true;
     }//end if
@@ -63,10 +71,11 @@ function regex_register(data) {
     }//end if
 
     if (error === false) {
-        register_validate_saerver(data);
+        register_validate_server(data);
     }//end if
 }//end validate_regex_register
 
+//Function that checks the login regex
 function regex_login(data) {
     login_email_error.innerHTML = '';
     login_password_error.innerHTML = '';
@@ -75,7 +84,7 @@ function regex_login(data) {
     const email_regex = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     let error = false;
 
-    //COMENT ONLY FOR TESTING
+    //COMMENT ONLY FOR TESTING
 
     /* if (email.length === 0) {
         login_email_error.innerHTML = '*You have to introduce an email';
@@ -95,23 +104,26 @@ function regex_login(data) {
     }//end if
 }//regex_login
 
+//Check if the email is already in use, if this is the case set the error messages otherwise add the user
 async function register_validate_server(data) {
-    const URL = `http://localhost:3000/user/${data.email}`;
+    const URL = `http://localhost:3000/user/${data.email}`; //URL for the petition
     const response = await fetch(URL);
-    if (response.status === 404) {
+    if (response.status === 404) { // The server returns 404 of the user don't exist
         add_user(data);
     } else {
         register_email_error.innerHTML = "*The email already in use";
     }
-}//register_validate_saerver
+}//register_validate_server
 
+//Check if the password is correct.
 async function login_validate_server(data) {
-    const URL = `http://localhost:3000/user/${data.email}/${data.pass}`;
+    const URL = `http://localhost:3000/user/${data.email}/${data.pass}`; //URL for the petition
     const response = await fetch(URL);
+    // If the petition is ok then check if the response of the server have a specific message
     if (response.status === 200) {
         const response_data = await response.json();
         if (response_data.status !== 'OK') {
-            login_password_error.innerHTML = "*The password or the email are incorect";
+            login_password_error.innerHTML = "*The password or the email are incorrect";
         } else {
             localStorage.setItem('token', response_data.id);
             window.location.href = '../index.html';
@@ -121,12 +133,13 @@ async function login_validate_server(data) {
     }
 }//login_validate_server
 
+//Function that add a user in the server
 async function add_user(data) {
-    const user = {
+    const user = { //body for the petition
         email: data.email,
         password: data.pass1
     }
-    const URL = 'http://localhost:3000/user';
+    const URL = 'http://localhost:3000/user'; //URL for the petition
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -134,6 +147,7 @@ async function add_user(data) {
     };
     const response = await fetch(URL, options);
     if (response.status === 200) {
+        //If the response is ok save the token in local storage and redirect to the home
         const response_data = await response.json();
         localStorage.setItem('token', response_data.id);
         window.location.href = '../index.html';
