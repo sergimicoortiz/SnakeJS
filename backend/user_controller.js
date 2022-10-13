@@ -40,7 +40,7 @@ router.get('/user/:email', (req, res) => {
 //Search an user using the token/id
 router.get('/user/token/:token', (req, res) => {
     const token = req.params.token;
-    const user = users.find(e => e.id === token);
+    const user = users.find(e => e.id === token );
     if (user) {
         res.json(user);
     } else {

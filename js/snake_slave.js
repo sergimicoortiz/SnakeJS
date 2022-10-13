@@ -1,7 +1,8 @@
 'use strict';
 
 class snake_slave {
-    constructor(size, canvas) {
+    constructor(size, canvas, color) {
+        this.color = color;
         this.canvas = canvas;
         this.direction = null;
         this.size = size
@@ -14,7 +15,7 @@ class snake_slave {
     //Draw the this part of the snake
     draw() {
         this.figure = this.canvas.getContext('2d');
-        this.figure.fillStyle = 'green';
+        this.figure.fillStyle = this.color;
         this.figure.fillRect(this.x, this.y, this.size, this.size);
     }//draw
 

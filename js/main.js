@@ -4,6 +4,11 @@
 let game_tick = 0;
 let size = 10;
 let score = 0;
+let colors = {
+    main: 'green',
+    apple: 'red',
+    obstacle: 'pink'
+};
 
 //Document elements
 const main = document.getElementById('main');
@@ -29,7 +34,7 @@ async function GameEnd() {
 
     // If there is a token in local storage then change the HightScore in the server
     if (localStorage.getItem('token')) {
-        const URL = `http://localhost:3000/user/${localStorage.getItem('token')}`;
+        const URL = `${URL_BASE}/user/${localStorage.getItem('token')}`;
         const body = JSON.stringify({ HightScore: localStorage.getItem('HightScore') });
         const options = {
             method: 'PUT',
@@ -64,8 +69,9 @@ function GameStart() {
             size = 15;
             break;
         case 3:
-            game_tick = 60;
+            game_tick = 110;
             size = 15;
+            colors.main = colors.apple = colors.obstacle = 'pink';
             break;
         default:
             game_tick = 130;
@@ -78,7 +84,7 @@ function GameStart() {
     const c = document.createElement('canvas');
     document.getElementById('start').innerHTML = null;
     main.append(c);
-    const s = new snake(c, size, difficulty);
+    const s = new snake(c, size, difficulty, colors);
 
     //Draw the snake for the first time, the same for the apple
     s.draw();

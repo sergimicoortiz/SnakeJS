@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/img/snake.ico">
     <title>Snake</title>
     <link rel="stylesheet" href="./css/game.css">
 </head>
@@ -14,16 +15,16 @@
     <div id="game_over"></div>
     <div id="score"></div>
     <div id="start"><button onclick="GameStart()">Start Game</button></div>
-    <br> 
+    <br>
     <form id="form">
         <label for="difficulty">Select a difficulty</label>
         <input type="number" min="1" max="3" value="1" name="difficulty">
     </form>
 </body>
 <footer>
+    <script src="./js/config.js"></script>
     <script src="./js/snake_slave.js"></script>
-    <script src="./js/obstacle.js"></script>
-    <script src="./js/fruit.js"></script>
+    <script src="./js/box.js"></script>
     <script src="./js/snake.js"></script>
     <script src="./js/main.js"></script>
 </footer>

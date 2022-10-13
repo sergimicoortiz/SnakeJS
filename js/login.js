@@ -36,8 +36,7 @@ form_login.addEventListener('submit', e => {
 form_register.addEventListener('submit', e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
-    //regex_register(data); 
-    add_user(data); //REMOVE ONLY FOR TESTING
+    regex_register(data);
 });//login
 
 //Function that checks the register regex
@@ -86,13 +85,13 @@ function regex_login(data) {
 
     //COMMENT ONLY FOR TESTING
 
-    /* if (email.length === 0) {
+    if (email.length === 0) {
         login_email_error.innerHTML = '*You have to introduce an email';
         error = true;
     } else if (email_regex.test(email) === false) {
         login_email_error.innerHTML = "*The email's format is incorrect";
         error = true;
-    };//end else if */
+    };//end else if
 
     if (password.length < 1) {
         login_password_error.innerHTML = "*The password con't be empty";
@@ -106,7 +105,7 @@ function regex_login(data) {
 
 //Check if the email is already in use, if this is the case set the error messages otherwise add the user
 async function register_validate_server(data) {
-    const URL = `http://localhost:3000/user/${data.email}`; //URL for the petition
+    const URL = `${URL_BASE}/user/${data.email}`; //URL for the petition
     const response = await fetch(URL);
     if (response.status === 404) { // The server returns 404 of the user don't exist
         add_user(data);
@@ -117,7 +116,7 @@ async function register_validate_server(data) {
 
 //Check if the password is correct.
 async function login_validate_server(data) {
-    const URL = `http://localhost:3000/user/${data.email}/${data.pass}`; //URL for the petition
+    const URL = `${URL_BASE}/user/${data.email}/${data.pass}`; //URL for the petition
     const response = await fetch(URL);
     // If the petition is ok then check if the response of the server have a specific message
     if (response.status === 200) {
@@ -139,7 +138,7 @@ async function add_user(data) {
         email: data.email,
         password: data.pass1
     }
-    const URL = 'http://localhost:3000/user'; //URL for the petition
+    const URL = `${URL_BASE}/user`; //URL for the petition
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

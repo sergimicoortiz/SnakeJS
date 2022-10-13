@@ -1,7 +1,10 @@
 'use strict';
 
 class snake {
-    constructor(canvas, size, difficulty) {
+    constructor(canvas, size, difficulty, colors) {
+        this.color = colors.main;
+        this.apple_color = colors.apple;
+        this.obstacle_color = colors.obstacle;
         this.size = size
         this.canvas_square = size;
         this.x = 10;
@@ -11,13 +14,13 @@ class snake {
         this.canvas = canvas
         this.game_over = false;
         this.score = 0;
-        this.apple = new fruit(size, canvas);
+        this.apple = new box(size, canvas, this.apple_color);
         this.obstacles = [];
         this.salves = [];
 
         this.apple.draw([size, this.GetAllCoordinates('obstacle')]);
         if (this.difficulty > 1) {
-            this.obstacles.push(new obstacle(this.size, this.canvas));
+            this.obstacles.push(new box(this.size, this.canvas, this.obstacle_color));
             this.ObstacleDraw();
         }
     }//constructor
@@ -25,7 +28,7 @@ class snake {
     //Draws the snake
     draw() {
         this.figure = this.canvas.getContext('2d');
-        this.figure.fillStyle = 'green';
+        this.figure.fillStyle = this.color;
         this.figure.fillRect(this.x, this.y, this.size, this.size);
     }//draw
 
@@ -114,13 +117,13 @@ class snake {
 
             this.apple.draw([this.size, this.GetAllCoordinates('apple')]);
             this.score = this.score + this.difficulty;
-            this.salves.push(new snake_slave(this.size, this.canvas));
-            if (this.difficulty > 1 && this.obstacles.length < 5) {
+            this.salves.push(new snake_slave(this.size, this.canvas, this.color));
+            if (this.difficulty > 1 && this.obstacles.length <= 5) {
                 if (this.score % 10 === 0) {
-                    this.obstacles.push(new obstacle(this.size, this.canvas));
+                    this.obstacles.push(new box(this.size, this.canvas, this.obstacle_color));
+                    this.ObstacleDraw();
                 }
             }
-            if (this.obstacles.length > 0) { this.ObstacleDraw(); }
         }//end if
     }//AppleCollision
 
@@ -144,7 +147,6 @@ class snake {
                 this.size + this.y > obstacle.y) { this.GameOver(); }
         })
     }//ObstacleCollision
-
 
     ////MOVEMENT AND DRAW///////////////////////////
 
@@ -182,7 +184,6 @@ class snake {
             coordinates.push({ x: s.x, y: s.y });
         });//foreach
 
-        //ADD ALL THE OBSTACLES TO THE ARRAY  TODO
         switch (extra) {
             case 'apple':
                 coordinates.push({ x: this.apple.x, y: this.apple.y });
@@ -197,7 +198,5 @@ class snake {
         }
         return coordinates;
     }//GetAllCoordinates
-
-    ///////////////////////////////////////////////////////
 
 }//class
