@@ -89,8 +89,8 @@ router.put('/user/:id', (req, res) => {
 
 //Get the top 10 players withe the max score
 router.get('/score', (req, res) => {
-    let max = 10;
-    if (max > users.length) { max = users.length };
+    let max = 5;
+    if (max >= users.length) { max = users.length };
     const scores = users.map(i => { return { email: i.email, score: i.HightScore }; })
         .sort((a, b) => b.score - a.score)
         .splice(0, max);

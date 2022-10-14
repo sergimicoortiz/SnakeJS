@@ -5,5 +5,5 @@ canvas {
 }
 
 .h {
-    display: none;
+    display: none !important;
 }
