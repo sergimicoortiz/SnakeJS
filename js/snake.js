@@ -115,12 +115,19 @@ class snake {
             this.y < this.apple.y + this.apple.size &&
             this.size + this.y > this.apple.y) {
 
-            this.apple.draw([this.size, this.GetAllCoordinates('apple')]);
+            this.apple.draw([this.size * 3, this.GetAllCoordinates('apple')]);
             this.score = this.score + this.difficulty;
             this.salves.push(new snake_slave(this.size, this.canvas, this.color));
             if (this.difficulty > 1 && this.obstacles.length <= 5) {
-                if (this.score % 10 === 0) {
+                if (this.score % 10 === 0 && this.difficulty === 2) {
                     this.obstacles.push(new box(this.size, this.canvas, this.obstacle_color));
+                    this.ObstacleDraw();
+                }
+                if (this.score % 15 === 0 && this.difficulty === 3) {
+                    this.obstacles.push(new box(this.size, this.canvas, this.obstacle_color));
+                    this.ObstacleDraw();
+                }
+                if (this.score % 15 !== 0 && this.difficulty === 3) {
                     this.ObstacleDraw();
                 }
             }
@@ -165,7 +172,7 @@ class snake {
     ObstacleDraw() {
         //The first follows the head of the snake(this object) and the others the previous slave
         for (let i = 0; i < this.obstacles.length; i++) {
-            this.obstacles[i].draw([this.size, this.GetAllCoordinates('apple')]);
+            this.obstacles[i].draw([this.size * 3, this.GetAllCoordinates('apple')]);
         }//end for
     };//ObstacleMove
 

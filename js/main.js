@@ -70,13 +70,12 @@ function GameStart() {
             size = 10;
             break;
         case 2:
-            game_tick = 90;
+            game_tick = 100;
             size = 15;
             break;
         case 3:
-            game_tick = 110;
+            game_tick = 90;
             size = 15;
-            colors.main = colors.apple = colors.obstacle = 'pink';
             break;
         default:
             game_tick = 130;
