@@ -115,13 +115,13 @@ class snake {
             this.y < this.apple.y + this.apple.size &&
             this.size + this.y > this.apple.y) {
 
-            this.apple.draw([this.size * 3, this.GetAllCoordinates('apple')]);
+            this.apple.draw([this.size * 3, this.GetAllCoordinates()]);
             this.score = this.score + this.difficulty;
             this.salves.push(new snake_slave(this.size, this.canvas, this.color));
-            if (this.difficulty > 1 && this.obstacles.length <= 5) {
+            if ((this.difficulty > 1 && this.obstacles.length <= 5)) {
                 if (this.score % 10 === 0 && this.difficulty === 2) {
                     this.obstacles.push(new box(this.size, this.canvas, this.obstacle_color));
-                    this.ObstacleDraw();
+                    this.obstacles[this.obstacles.length - 1].draw([this.size * 3, this.GetAllCoordinates()]);
                 }
                 if (this.score % 15 === 0 && this.difficulty === 3) {
                     this.obstacles.push(new box(this.size, this.canvas, this.obstacle_color));
@@ -172,7 +172,7 @@ class snake {
     ObstacleDraw() {
         //The first follows the head of the snake(this object) and the others the previous slave
         for (let i = 0; i < this.obstacles.length; i++) {
-            this.obstacles[i].draw([this.size * 3, this.GetAllCoordinates('apple')]);
+            this.obstacles[i].draw([this.size * 3, this.GetAllCoordinates()]);
         }//end for
     };//ObstacleMove
 
@@ -183,26 +183,19 @@ class snake {
         this.game_over = true;
     }//IsGameOver
 
-    //Get the coordinates fot the head and all the slaves. Is used in the fruit class
-    GetAllCoordinates(extra = null) {
+    //Get the coordinates fot the head, all the slaves ,the apple and the obstacles
+    GetAllCoordinates() {
         let coordinates = [];
         coordinates.push({ x: this.x, y: this.y });
         this.salves.forEach(s => {
             coordinates.push({ x: s.x, y: s.y });
         });//foreach
 
-        switch (extra) {
-            case 'apple':
-                coordinates.push({ x: this.apple.x, y: this.apple.y });
-                break;
-            case 'obstacle':
-                this.obstacles.forEach(o => {
-                    coordinates.push({ x: o.x, y: o.y });
-                });//foreach
-                break;
-            default:
-                break;
-        }
+        coordinates.push({ x: this.apple.x, y: this.apple.y });
+        this.obstacles.forEach(o => {
+            coordinates.push({ x: o.x, y: o.y });
+        });//foreach
+
         return coordinates;
     }//GetAllCoordinates
 
