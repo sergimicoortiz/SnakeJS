@@ -28,8 +28,26 @@
     <div id="start"><button onclick="GameStart()">Start Game</button></div>
     <br>
     <form id="form">
-        <label for="difficulty">Select a difficulty</label>
-        <input type="number" min="1" max="3" value="1" name="difficulty">
+        <label for="difficulty">Select a difficulty
+            <input type="number" min="1" max="3" value="1" name="difficulty">
+        </label><br>
+        <label for="snake_color">
+            Select the color for the snake.
+            <input type="color" name="snake_color" id="snake_color" value="#27AE60">
+        </label><br>
+        <label for="apple_color">
+            Select the color for the apple.
+            <input type="color" name="apple_color" id="apple_color" value="#C0392B">
+        </label><br>
+        <label for="obstacle_color">
+            Select the color for the obstacles (only on difficulty 2 and 3).
+            <input type="color" name="obstacle_color" id="obstacle_color" value="#2874A6">
+        </label><br>
+        <label for="apple_color">
+            Select the color for the canvas.
+            <input type="color" name="canvas_color" id="canvas_color" value="#000000">
+        </label><br>
+        <button type="reset">Reset values</button>
     </form>
 </body>
 <footer>

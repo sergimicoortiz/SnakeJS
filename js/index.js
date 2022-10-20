@@ -19,7 +19,6 @@ async function get_user_data() {
     }//else if
 }//get_user_data
 
-
 //This function request the score board data and put it in a list.
 async function get_score_board() {
     const board = document.getElementById('score_board');

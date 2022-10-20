@@ -1,5 +1,6 @@
 'use strict';
 
+
 class box {
     constructor(size, canvas, color) {
         this.color = color;
@@ -26,9 +27,9 @@ class box {
     //Generate a random number
     randomNumber(max) {
         const min = 0;
+        max = Math.floor(max);
         return Math.floor(Math.random() * (max - min) + min);
     }//randomNumber
-
 
     //Set the coordinates for the box
     SetXY(coordinates) {
@@ -73,5 +74,4 @@ class box {
         }//end if
         return collision;
     }//CollisionSpawn
-
 }//class

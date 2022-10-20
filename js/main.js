@@ -1,14 +1,10 @@
 'use strict';
 
+
 //Variables for the game. The size is changed depending on the difficulty 
 let game_tick = 0;
 let size = 0;
 let score = 0;
-let colors = {
-    main: 'green',
-    apple: 'red',
-    obstacle: 'pink'
-};
 
 //Document elements
 const main = document.getElementById('main');
@@ -56,7 +52,18 @@ async function GameEnd() {
 function GameStart() {
     form.className = 'h';
     controller.classList.remove('h');
+
+    //Get the values from the form.
     const form_data = Object.fromEntries(new FormData(form));
+    //Set the colors 
+    const colors = {
+        main: form_data.snake_color || 'green',
+        apple: form_data.apple_color || 'red',
+        obstacle: form_data.obstacle_color || 'blue'
+    };
+    const canvas_color = form_data.canvas_color || 'black';
+
+    //Get the difficulty from the form 
     let difficulty = 1;
     try {
         difficulty = parseInt(form_data.difficulty);
@@ -74,7 +81,7 @@ function GameStart() {
             size = 15;
             break;
         case 3:
-            game_tick = 90;
+            game_tick = 85;
             size = 15;
             break;
         default:
@@ -86,6 +93,7 @@ function GameStart() {
     //Create the canvas and clear all the other elements and generates the snake
     game_over_element.innerHTML = null;
     const c = document.createElement('canvas');
+    c.style = `background-color: ${canvas_color};`;
     document.getElementById('start').innerHTML = null;
     main.append(c);
     const s = new snake(c, size, difficulty, colors);

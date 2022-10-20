@@ -87,7 +87,7 @@ router.put('/user/:id', (req, res) => {
 });//update user
 
 
-//Get the top 10 players withe the max score
+//Get the top 5 players withe the max score
 router.get('/score', (req, res) => {
     let max = 5;
     if (max >= users.length) { max = users.length };

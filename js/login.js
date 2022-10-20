@@ -1,5 +1,6 @@
 'use strict';
 
+
 //All the elements from the document
 const loginForm = document.querySelector("form.login");
 const loginBtn = document.querySelector("label.login");
@@ -12,7 +13,6 @@ const register_password_error = document.getElementById('register_password_error
 const login_email_error = document.getElementById('login_email_error');
 const login_password_error = document.getElementById('login_password_error');
 
-
 //The onclick to change the style og the form
 signupBtn.onclick = () => {
     loginForm.style.marginLeft = "-50%";
@@ -23,7 +23,6 @@ loginBtn.onclick = () => {
     loginForm.style.marginLeft = "0%";
     loginText.style.marginLeft = "0%";
 };
-
 
 //EventListener for the login
 form_login.addEventListener('submit', e => {

@@ -1,5 +1,6 @@
 'use strict';
 
+
 class snake {
     constructor(canvas, size, difficulty, colors) {
         this.color = colors.main;
@@ -104,7 +105,6 @@ class snake {
         }//switch
     }//SetDirection
 
-
     //////COLLISION//////////////////////////////
 
     //Detects the collision with the apples, in case of collision add one point redraw the apple and add a slave to the slave array 
@@ -198,5 +198,4 @@ class snake {
 
         return coordinates;
     }//GetAllCoordinates
-
 }//class

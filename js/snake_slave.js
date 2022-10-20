@@ -1,5 +1,6 @@
 'use strict';
 
+
 class snake_slave {
     constructor(size, canvas, color) {
         this.color = color;
@@ -10,7 +11,6 @@ class snake_slave {
         this.x = 0;
         this.y = 0;
     }//constructor
-
 
     //Draw the this part of the snake
     draw() {
@@ -54,7 +54,6 @@ class snake_slave {
         this.draw();
         this.spawn = false;
     }//follow
-
 
     //Set the direction that this part of the snake must follow, the directions depends on the parent coordinates.
     SetDirection(parent) {
