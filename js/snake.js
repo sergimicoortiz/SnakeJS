@@ -3,21 +3,21 @@
 
 class snake {
     constructor(canvas, size, difficulty, colors) {
-        this.color = colors.main;
-        this.apple_color = colors.apple;
-        this.obstacle_color = colors.obstacle;
-        this.size = size
-        this.canvas_square = size;
-        this.x = 10;
-        this.y = 10;
-        this.difficulty = difficulty;
-        this.direction = "s";
-        this.canvas = canvas
-        this.game_over = false;
-        this.score = 0;
-        this.apple = new box(size, canvas, this.apple_color);
-        this.obstacles = [];
-        this.salves = [];
+        this.color = colors.main; //The color used in the draw function
+        this.apple_color = colors.apple; //The color for the apple
+        this.obstacle_color = colors.obstacle; //The color for the obstacle
+        this.size = size  //The size of the rectangle
+        this.canvas_square = size;  //The size used for the movement
+        this.x = 10; //The x coordinate
+        this.y = 10; //The y coordinate
+        this.difficulty = difficulty; //The difficulty of the game
+        this.direction = "s"; //The direction that will be used in the move function
+        this.canvas = canvas //The canvas in witch the object will be generated
+        this.game_over = false; //A game over variable to trigger the GameOver function in main.js
+        this.score = 0; //The score of the user
+        this.apple = new box(size, canvas, this.apple_color); //A box object used as the apple 
+        this.obstacles = []; //A box array that contains all the obstacles
+        this.salves = []; //A snake_slave array
 
         this.apple.draw([size, this.GetAllCoordinates('obstacle')]);
         if (this.difficulty > 1) {

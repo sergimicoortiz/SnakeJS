@@ -1,13 +1,13 @@
 'use strict';
 
-
+//This class is used as the apple and as the obstacle as the same time.
 class box {
     constructor(size, canvas, color) {
-        this.color = color;
-        this.size = size
-        this.canvas = canvas;
-        this.x = 0;
-        this.y = 0;
+        this.color = color; //The color used in the draw function
+        this.size = size //The size of the rectangle
+        this.canvas = canvas; //The canvas in witch the object will be generated
+        this.x = 0; //The x coordinate
+        this.y = 0; //The y coordinate
     }//constructor
 
     //Draw the box in the canvas in the coordinates that are specified

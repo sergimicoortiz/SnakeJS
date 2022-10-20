@@ -3,17 +3,15 @@ import express from 'express';
 import cors from 'cors';
 dotenv.config();
 
-const cors_options = {
-    origin: process.env.CORSURL || "http://localhost:5500"
-};
-const PORT = process.env.PORT || 3000
-import router from './user_controller.js'
+const PORT = process.env.PORT || 3000 //Get the port from the .env file
+import router from './user_controller.js' //The router of the users that is also the controller
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(router);
+const app = express(); //Create the app
+app.use(cors()); //Use the cors dependencies
+app.use(express.json()); //With this the req.body can have json format
+app.use(router); //Import the user controller
 
+//Start the server
 app.listen(PORT, () => {
     console.log('SERVER UP');
 });

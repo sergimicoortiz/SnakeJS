@@ -3,13 +3,13 @@
 
 class snake_slave {
     constructor(size, canvas, color) {
-        this.color = color;
-        this.canvas = canvas;
-        this.direction = null;
-        this.size = size
-        this.spawn = true;
-        this.x = 0;
-        this.y = 0;
+        this.color = color; //The color used in the draw function, the same as the snake
+        this.canvas = canvas;  //The canvas in witch the object will be generated
+        this.direction = null; //The direction that will follow thw object
+        this.size = size //The size of the rectangle
+        this.spawn = true; //Used for the SetDirection and follow functions
+        this.x = 0; //The x coordinate
+        this.y = 0; //The y coordinate
     }//constructor
 
     //Draw the this part of the snake
@@ -25,13 +25,13 @@ class snake_slave {
     }//clear
 
     follow(parent) {
-        this.direction = this.SetDirection(parent);
+        this.direction = this.SetDirection(parent); //Chanche the direction of the slave so the next one can use it as his parent
         const d = parent.direction;
         const x = parent.x;
         const y = parent.y;
         //Only clear if this is not the first time that the object has been draw
         if (!this.spawn) { this.clear(); }
-        //Depending on the direction sets the x and y to a different point 
+        //Depending on the direction of the parent sets the x and y to a different point
         switch (d) {
             case 'n':
                 this.x = x;
@@ -57,8 +57,8 @@ class snake_slave {
 
     //Set the direction that this part of the snake must follow, the directions depends on the parent coordinates.
     SetDirection(parent) {
-        if (this.x == 0 && this.y == 0) { return parent.direction }
-        if (parent.x !== this.x && parent.y !== this.y) { return this.direction; }//if
+        if (this.spawn) { return parent.direction }
+        if (parent.x !== this.x && parent.y !== this.y) { return this.direction; }
         return parent.direction;
     }//SetDirection
 

@@ -128,7 +128,7 @@ function GameStart() {
     //The interval that moves the game.
     //First the interval moves the snake and refresh the Score value.
     //Next detects if the game_over value is false.
-    //If the value is false the interval stops and we generate the game over screen
+    //If the value is false the interval stops and the GameEnd function is called 
     const game_interval = setInterval(() => {
         s.move();
         score_element.innerHTML = `Score: ${s.score}`
