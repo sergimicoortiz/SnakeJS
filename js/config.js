@@ -1,5 +1,6 @@
 'use strict';
 
 
-//The base url used for all the backend petitions
-const URL_BASE = 'http://localhost:3000';
+//The base url used for all the fetch requests.
+const URL_PORT = 3000;
+const URL_BASE = `http://localhost:${URL_PORT}`;

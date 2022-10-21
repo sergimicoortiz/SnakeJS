@@ -77,11 +77,11 @@ function GameStart() {
             size = 10;
             break;
         case 2:
-            game_tick = 100;
+            game_tick = 130;
             size = 15;
             break;
         case 3:
-            game_tick = 85;
+            game_tick = 100;
             size = 15;
             break;
         default:

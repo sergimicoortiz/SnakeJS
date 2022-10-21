@@ -11,10 +11,13 @@ async function get_user_data() {
         if (response.status === 200) {
             const response_data = await response.json();
             document.getElementById('user_email').innerHTML = response_data.email;
+            document.getElementById('user_img').innerHTML = `<img src="${response_data.img}"></img>`
             document.getElementById('login_btn').classList.value = 'h';
             localStorage.setItem('HightScore', response_data.HightScore);
         } else {
-            console.error('ERROR REGISTER');
+            //If the token is invalid remove the token from local storage and hide the user information and the logout button.
+            localStorage.removeItem('token');
+            document.getElementById('user_info').hidden = true;
         }
     }//else if
 }//get_user_data

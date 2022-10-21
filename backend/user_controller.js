@@ -2,26 +2,31 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import md5 from 'md5';
 const router = express.Router();
+import getUserImg from './utils.js';
 
 //Users for testing
 let users = [{
     id: uuidv4(),
     email: 'user1@asd.asd',
+    img: await getUserImg(),
     password: md5('user1'),
     HightScore: 12
 }, {
     id: uuidv4(),
     email: 'user2@asd.asd',
+    img: await getUserImg(),
     password: md5('user2'),
     HightScore: 24
 }, {
     id: uuidv4(),
     email: 'user3@asd.asd',
+    img: await getUserImg(),
     password: md5('user3'),
     HightScore: 33
 }, {
     id: uuidv4(),
     email: 'user4@asd.asd',
+    img: await getUserImg(),
     password: md5('user4'),
     HightScore: 41
 }];
@@ -40,7 +45,7 @@ router.get('/user/:email', (req, res) => {
 //Search an user using the token/id
 router.get('/user/token/:token', (req, res) => {
     const token = req.params.token;
-    const user = users.find(e => e.id === token );
+    const user = users.find(e => e.id === token);
     if (user) {
         res.json(user);
     } else {
@@ -49,10 +54,11 @@ router.get('/user/token/:token', (req, res) => {
 });//default
 
 //Creates a user
-router.post('/user', (req, res) => {
+router.post('/user', async (req, res) => {
     const user = {
         id: uuidv4(),
         email: req.body.email,
+        img: await getUserImg(),
         password: md5(req.body.password),
         HightScore: 0
     };
